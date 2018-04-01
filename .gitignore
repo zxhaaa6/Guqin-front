@@ -9,6 +9,7 @@
 
 # misc
 .idea/
+.vscode
 .happypack
 .DS_Store
 

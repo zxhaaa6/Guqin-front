@@ -55,5 +55,8 @@
     "title": "ICE Design CMS",
     "snapshot": "https://img.alicdn.com/tfs/TB1NKRzdY9YBuNjy0FgXXcxcXXa-1920-1080.png"
   },
-  "title": "Guqin-front"
+  "title": "Guqin-front",
+  "themeConfig": {
+    "theme": "light"
+  }
 }

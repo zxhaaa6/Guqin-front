@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import '@icedesign/base/reset.scss';
 import routes from './routes';
 
-// 以下代码 ICE 自动生成, 请勿修改
 const container = document.createElement('div');
 container.dataset.reactRoot = true;
 document.body.appendChild(container);
