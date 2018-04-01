@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ice-scaffold-cms
 
 > 使用文档
@@ -19,3 +20,7 @@
 效果图:
 
 ![screenshot](https://img.alicdn.com/tfs/TB1NKRzdY9YBuNjy0FgXXcxcXXa-1920-1080.png)
+=======
+# Guqin-front
+This is a GQL-front-system based on ice/react
+>>>>>>> 9078896fd28afc54e67c9a8a26e72a3e680e40cb
