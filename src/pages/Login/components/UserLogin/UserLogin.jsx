@@ -9,6 +9,7 @@ import {
 } from '@icedesign/form-binder';
 import IceIcon from '@icedesign/icon';
 import './UserLogin.scss';
+import Api from '../Api'
 
 const { Row, Col } = Grid;
 
@@ -25,6 +26,7 @@ export default class UserLogin extends Component {
 
   constructor(props) {
     super(props);
+    this.Api = new Api();
     this.state = {
       value: {
         account: undefined,
@@ -44,12 +46,13 @@ export default class UserLogin extends Component {
     e.preventDefault();
     this.refs.form.validateAll((errors, values) => {
       if (errors) {
-        console.log('errors', errors);
         return;
       }
-      console.log('values:', values);
-      console.log(this.props);
-      hashHistory.push('/');
+      this.Api.handleLogin(values.account, values.password).then(isLogin => {
+        if (isLogin) {
+          hashHistory.push('/');
+        }
+      });
     });
   };
 
@@ -105,7 +108,9 @@ export default class UserLogin extends Component {
                     <IceFormError name="password" />
                   </Col>
                 </Row>
-
+                <Row style={styles.loginErr}>
+                  <IceFormError name="loginForm" />
+                </Row>
                 <Row style={styles.formItem}>
                   <Col>
                     <IceFormBinder name="checkbox">
@@ -200,5 +205,9 @@ const styles = {
   line: {
     color: '#dcd6d6',
     margin: '0 8px',
+  },
+  loginErr: {
+    color: '#dcd6d6',
+    display: 'none'
   },
 };
