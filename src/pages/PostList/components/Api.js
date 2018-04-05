@@ -7,7 +7,6 @@ export default class Api {
   }
 
   async getAllResource(query) {
-    console.log(query);
     const url = '/resource/all';
     return await this.communication.doJsonGet(url, query);
   }

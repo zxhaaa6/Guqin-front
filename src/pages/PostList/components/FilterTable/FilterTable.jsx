@@ -2,25 +2,10 @@
 import React, { Component } from 'react';
 import { Table, Pagination } from '@icedesign/base';
 import IceContainer from '@icedesign/container';
-import DataBinder from '@icedesign/data-binder';
 import IceLabel from '@icedesign/label';
 import FilterForm from './components/FilterForm';
 import Api from '../Api';
 
-@DataBinder({
-  tableData: {
-    url: '/resource/all',
-    params: {
-      page: 1,
-    },
-    defaultBindingData: {
-      data: [],
-      total: 0,
-      pageSize: 10,
-      currentPage: 1,
-    },
-  },
-})
 export default class FilterTable extends Component {
   static displayName = 'FilterTable';
 
@@ -52,7 +37,6 @@ export default class FilterTable extends Component {
 
   fetchData = () => {
     this.Api.getAllResource(this.queryCache).then(result => {
-      console.log(result);
       this.setState({
         tableData: result,
       });
