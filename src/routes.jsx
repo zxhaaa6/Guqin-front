@@ -30,7 +30,7 @@ import NotFound from './pages/NotFound';
 
 const authSST = function (nextState, replace, next) {
   const token = sessionStorage.getItem('token');
-  if (token) {
+  if (token && token !== 'null') {
     next();
   } else {
     replace({
