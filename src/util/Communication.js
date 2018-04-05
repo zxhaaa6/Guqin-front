@@ -4,13 +4,19 @@ import config from '../config/config';
 const Toast = Feedback.toast;
 
 export default class Communication {
+
   constructor() {
     this.apiHost = config.apiHost;
 
+    this.ajax = axios.create({
+      baseURL: this.apiHost,
+      timeout: 5000,
+      headers: { 'Authentication': 'Bearer ' + sessionStorage.getItem('token') }
+    });
   }
 
   doJsonPost(url, jsonData) {
-    return axios.post(this.apiHost + url, jsonData).then(response => {
+    return this.ajax.post(url, jsonData).then(response => {
       if (response.data.success) {
         return response.data;
       }

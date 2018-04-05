@@ -108,9 +108,6 @@ export default class UserLogin extends Component {
                     <IceFormError name="password" />
                   </Col>
                 </Row>
-                <Row style={styles.loginErr}>
-                  <IceFormError name="loginForm" />
-                </Row>
                 <Row style={styles.formItem}>
                   <Col>
                     <IceFormBinder name="checkbox">
@@ -205,9 +202,5 @@ const styles = {
   line: {
     color: '#dcd6d6',
     margin: '0 8px',
-  },
-  loginErr: {
-    color: '#dcd6d6',
-    display: 'none'
   },
 };

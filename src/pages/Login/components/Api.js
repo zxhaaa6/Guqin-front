@@ -1,9 +1,11 @@
 import Communication from '../../../util/Communication';
 
 export default class Api {
+
   constructor() {
     this.communication = new Communication();
   }
+  
   handleLogin(account, password) {
     const url = '/user/login',
       postData = { account, password };
