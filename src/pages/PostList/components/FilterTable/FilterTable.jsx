@@ -41,10 +41,6 @@ export default class FilterTable extends Component {
         tableData: result,
       });
     });
-    //this.Api.getAllResource(this.queryCache);
-    // this.props.updateBindingData('tableData', {
-    //   data: this.queryCache,
-    // });
   };
 
   renderTitle = (value, index, record) => {
@@ -113,11 +109,12 @@ export default class FilterTable extends Component {
 
   filterTable = () => {
     // 合并参数，请求数据
+    this.queryCache.page = 1;
     this.queryCache = {
       ...this.queryCache,
       ...this.state.filterFormValue,
     };
-    console.log(this.state.filterFormValue);
+    console.log(this.queryCache);
     this.fetchData();
   };
 

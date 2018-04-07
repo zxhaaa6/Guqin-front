@@ -10,4 +10,22 @@ export default class Api {
     const url = '/resource/all';
     return await this.communication.doJsonGet(url, query);
   }
+
+  async getFilterFormData() {
+    const category = await this.getAllCategory();
+    const tag = await this.getAllTag();
+    return { category, tag };
+  }
+
+  async getAllCategory() {
+    const url = '/category/all';
+    const result = await this.communication.doJsonGet(url);
+    return result.data;
+  }
+
+  async getAllTag() {
+    const url = '/tag/all';
+    const result = await this.communication.doJsonGet(url);
+    return result.data;
+  }
 }

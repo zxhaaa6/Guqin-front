@@ -43,7 +43,7 @@ export default class Communication {
   }
 
   handleError(err) {
-    if (err.response.status === 401) {
+    if (err.response && err.response.status === 401) {
       sessionStorage.setItem('token', null);
       hashHistory.push('/login');
       return;
