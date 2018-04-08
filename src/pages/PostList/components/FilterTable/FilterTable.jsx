@@ -148,9 +148,9 @@ export default class FilterTable extends Component {
         <IceContainer title="内容筛选">
           <FilterForm
             value={filterFormValue}
-            onChange={this.filterFormChange.bind(this)}
-            onSubmit={this.filterTable.bind(this)}
-            onReset={this.resetFilter.bind(this)}
+            onChange={this.filterFormChange}
+            onSubmit={this.filterTable}
+            onReset={this.resetFilter}
           />
         </IceContainer>
         <IceContainer>
@@ -170,23 +170,23 @@ export default class FilterTable extends Component {
             <Table.Column
               title="标签"
               dataIndex="tags"
-              width={150}
+              width={85}
+              cell={this.renderStatus}
             />
             <Table.Column
               title="作者"
               dataIndex="authorName"
               width={85}
-              cell={this.renderStatus}
             />
             <Table.Column
               title="发布/最后修改时间"
               dataIndex="dateModified"
-              width={85}
+              width={135}
             />
             <Table.Column
               title="操作"
               dataIndex="operation"
-              width={150}
+              width={135}
               cell={this.renderOperations}
             />
           </Table>
