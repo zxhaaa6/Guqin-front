@@ -113,7 +113,7 @@ export default class FilterForm extends Component {
                   return strValue;
                 }}
               >
-                <DatePicker name="publishDate" style={styles.filterTool}  value={publishDate} />
+                <DatePicker name="publishDate" style={styles.filterTool} value={publishDate} />
               </IceFormBinder>
             </Col>
           </Row>

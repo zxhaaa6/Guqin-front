@@ -37,9 +37,21 @@ export default class FilterTable extends Component {
 
   fetchData = () => {
     this.Api.getAllResource(this.queryCache).then(result => {
-      this.setState({
-        tableData: result,
-      });
+      if (result) {
+        this.setState({
+          tableData: result,
+        });
+      } else {
+        this.setState({
+          tableData: {
+            data: [],
+            total: 0,
+            pageSize: 10,
+            currentPage: 1,
+            pageCount: 1,
+          }
+        });
+      }
     });
   };
 
@@ -119,8 +131,11 @@ export default class FilterTable extends Component {
   };
 
   resetFilter = () => {
+    this.queryCache = {};
     this.setState({
       filterFormValue: {},
+    }, () => {
+      this.filterTable();
     });
   };
 
@@ -133,9 +148,9 @@ export default class FilterTable extends Component {
         <IceContainer title="内容筛选">
           <FilterForm
             value={filterFormValue}
-            onChange={this.filterFormChange}
-            onSubmit={this.filterTable}
-            onReset={this.resetFilter}
+            onChange={this.filterFormChange.bind(this)}
+            onSubmit={this.filterTable.bind(this)}
+            onReset={this.resetFilter.bind(this)}
           />
         </IceContainer>
         <IceContainer>
