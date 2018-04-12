@@ -11,6 +11,11 @@ export default class Api {
     return await this.communication.doJsonGet(url, query);
   }
 
+  async deleteResource(id) {
+    const url = '/resource/';
+    return await this.communication.doJsonDelete(url, { id });
+  }
+
   async getFilterFormData() {
     const category = await this.getAllCategory();
     const tag = await this.getAllTag();

@@ -38,6 +38,17 @@ export default class Communication {
     });
   }
 
+  doJsonDelete(url, params) {
+    return this.ajax.delete(url, { params: params }).then(response => {
+      if (response.data.success) {
+        return response.data;
+      }
+      this.handleFieldMsg(response.data);
+    }).catch(err => {
+      this.handleError(err);
+    });
+  }
+
   handleFieldMsg(data) {
     Toast.error(data.status + ' ' + data.message);
   }

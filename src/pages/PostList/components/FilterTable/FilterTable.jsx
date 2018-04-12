@@ -4,6 +4,7 @@ import { Table, Pagination } from '@icedesign/base';
 import IceContainer from '@icedesign/container';
 import IceLabel from '@icedesign/label';
 import FilterForm from './components/FilterForm';
+import DeleteBalloon from './components/DeleteBalloon';
 import Api from '../Api';
 
 export default class FilterTable extends Component {
@@ -66,11 +67,19 @@ export default class FilterTable extends Component {
   editItem = (record, e) => {
     e.preventDefault();
     // TODO: record 为该行所对应的数据，可自定义操作行为
+    console.log(record);
   };
 
-  deleteItem = () => {
-    e.preventDefault();
-
+  deleteItem = (value, index, record) => {
+    this.Api.deleteResource(record._id).then(result => {
+      if (result) {
+        const { tableData } = this.state;
+        tableData.data.splice(index, 1);
+        this.setState({
+          tableData,
+        });
+      }
+    });
   }
 
   renderOperations = (value, index, record) => {
@@ -87,14 +96,9 @@ export default class FilterTable extends Component {
         >
           编辑
         </a>
-        <a
-          href="#"
-          style={styles.operationItem}
-          target="_blank"
-          onClick={this.deleteItem.bind(this, record)}
-        >
-          删除
-        </a>
+        <DeleteBalloon
+          handleRemove={() => this.deleteItem(value, index, record)}
+        />
       </div>
     );
   };
