@@ -1,6 +1,7 @@
 /* eslint no-underscore-dangle: 0 */
 import React, { Component } from 'react';
 import { Table, Pagination } from '@icedesign/base';
+import { hashHistory } from 'react-router';
 import IceContainer from '@icedesign/container';
 import IceLabel from '@icedesign/label';
 import FilterForm from './components/FilterForm';
@@ -66,8 +67,15 @@ export default class FilterTable extends Component {
 
   editItem = (record, e) => {
     e.preventDefault();
-    // TODO: record 为该行所对应的数据，可自定义操作行为
-    console.log(record);
+    // TODO: record 为该行所对应的数据，可自定义操作行为    
+    hashHistory.push({
+      pathname: 'post/create',
+      state: {
+        type: 'edit',
+        record
+      },
+    })
+
   };
 
   deleteItem = (value, index, record) => {

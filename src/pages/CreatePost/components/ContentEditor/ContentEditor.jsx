@@ -21,7 +21,12 @@ export default class ContentEditor extends Component {
 
   constructor(props) {
     super(props);
+
+    this.type = (this.props.dataSource && this.props.dataSource.type === 'edit') ? 'edit' : 'create';
+    this.oldRecord = (this.props.dataSource && this.props.dataSource.record) ? this.props.dataSource.record : null;
+
     this.state = {
+      headTitle: this.type === 'create' ? '添加文章' : '修改文章',
       value: {
         title: '',
         desc: '',
@@ -30,6 +35,10 @@ export default class ContentEditor extends Component {
         cats: [],
       },
     };
+  }
+
+  componentDidMount() {
+
   }
 
   formChange = (value) => {
@@ -51,6 +60,7 @@ export default class ContentEditor extends Component {
   };
 
   render() {
+    const { headTitle } = this.state;
     return (
       <div className="content-editor">
         <IceFormBinderWrapper
@@ -61,7 +71,7 @@ export default class ContentEditor extends Component {
           onChange={this.formChange}
         >
           <IceContainer>
-            <h2 style={styles.title}>添加文章</h2>
+            <h2 style={styles.title}>{headTitle}</h2>
             <Form labelAlign="top" style={styles.form}>
               <Row>
                 <Col span="11">

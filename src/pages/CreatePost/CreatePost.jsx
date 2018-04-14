@@ -22,7 +22,7 @@ export default class CreatePost extends Component {
     return (
       <div className="create-post-page">
         <CustomBreadcrumb dataSource={breadcrumb} />
-        <ContentEditor />
+        <ContentEditor dataSource={this.props.location.state} />
       </div>
     );
   }
