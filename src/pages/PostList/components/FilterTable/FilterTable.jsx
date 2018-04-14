@@ -67,7 +67,6 @@ export default class FilterTable extends Component {
 
   editItem = (record, e) => {
     e.preventDefault();
-    // TODO: record 为该行所对应的数据，可自定义操作行为    
     hashHistory.push({
       pathname: 'post/create',
       state: {
@@ -99,7 +98,6 @@ export default class FilterTable extends Component {
         <a
           href="#"
           style={styles.operationItem}
-          target="_blank"
           onClick={this.editItem.bind(this, record)}
         >
           编辑

@@ -7,7 +7,8 @@ import {
   FormError as IceFormError,
 } from '@icedesign/form-binder';
 
-import RichEditor from './RichEditor';
+import RichEditor from './RichEditor'
+import Api from '../Api';
 
 const { Row, Col } = Grid;
 const FormItem = Form.Item;
@@ -22,27 +23,54 @@ export default class ContentEditor extends Component {
   constructor(props) {
     super(props);
 
+    this.Api = new Api();
     this.type = (this.props.dataSource && this.props.dataSource.type === 'edit') ? 'edit' : 'create';
     this.oldRecord = (this.props.dataSource && this.props.dataSource.record) ? this.props.dataSource.record : null;
 
     this.state = {
       headTitle: this.type === 'create' ? '添加文章' : '修改文章',
+      categoryOptions: [],
+      tagOptions: [],
       value: {
         title: '',
-        desc: '',
-        author: '',
-        body: null,
-        cats: [],
+        categoryLa: '',
+        tags: [],
+        description: '',
+        text: null,
       },
     };
   }
 
-  componentDidMount() {
-
+  async componentDidMount() {
+    await this.fetchData();
+    if (this.type === 'edit') {
+      console.log(this.oldRecord);
+      const value = {
+        title: this.oldRecord.title,
+        categoryLa: this.oldRecord.categoryLaId,
+        tags: this.oldRecord.tagId,
+        description: this.oldRecord.description,
+        text: this.oldRecord.text,
+      };
+      this.setState({ value })
+    }
   }
 
+  fetchData = () => {
+    return this.Api.getFormData().then(result => {
+      const categoryOptions = this.state.categoryOptions.concat(result.category.map(element => {
+        //return <Option key={element._id} value={element._id}>{element.name}</Option>;
+        return { label: element.name, value: element._id };
+      }));
+      const tagOptions = this.state.tagOptions.concat(result.tag.map(element => {
+        //return <Option key={element._id} value={element._id}>{element.name}</Option>;
+        return { label: element.name, value: element._id };
+      }));
+      this.setState({ categoryOptions, tagOptions });
+    });
+  };
+
   formChange = (value) => {
-    console.log('value', value);
     this.setState({
       value,
     });
@@ -50,17 +78,15 @@ export default class ContentEditor extends Component {
 
   handleSubmit = () => {
     this.postForm.validateAll((errors, values) => {
-      console.log('errors', errors, 'values', values);
       if (errors) {
         return false;
       }
-
-      // ajax values
+      console.log(values);
     });
   };
 
   render() {
-    const { headTitle } = this.state;
+    const { headTitle, categoryOptions, tagOptions, value } = this.state;
     return (
       <div className="content-editor">
         <IceFormBinderWrapper
@@ -85,48 +111,43 @@ export default class ContentEditor extends Component {
               </Row>
               <Row>
                 <Col span="11">
-                  <FormItem label="作者" required>
+                  <FormItem label="分类" required>
                     <IceFormBinder
-                      name="author"
+                      name="categoryLa"
                       required
-                      message="作者信息必填"
+                      message="分类必填"
                     >
-                      <Input placeholder="填写作者名称" />
+                      <Select
+                        style={styles.cats}
+                        placeholder="请选择分类"
+                        dataSource={categoryOptions}
+                      />
                     </IceFormBinder>
-                    <IceFormError name="author" />
+                    <IceFormError name="categoryLa" />
                   </FormItem>
                 </Col>
                 <Col span="11" offset="2">
-                  <FormItem label="分类" required>
+                  <FormItem label="标签" required>
                     <IceFormBinder
-                      name="cats"
+                      name="tags"
                       required
                       type="array"
-                      message="分类必填支持多个"
+                      message="标签必填支持多个"
                     >
                       <Select
                         style={styles.cats}
                         multiple
-                        placeholder="请选择分类"
-                        dataSource={[
-                          { label: '分类1', value: 'cat1' },
-                          { label: '分类2', value: 'cat2' },
-                          { label: '分类3', value: 'cat3' },
-                        ]}
+                        placeholder="请选择标签"
+                        dataSource={tagOptions}
                       />
                     </IceFormBinder>
                     <IceFormError
-                      name="cats"
+                      name="tags"
                       render={(errors) => {
-                        console.log('errors', errors);
                         return (
                           <div>
                             <span style={{ color: 'red' }}>
                               {errors.map(item => item.message).join(',')}
-                            </span>
-                            <span style={{ marginLeft: 10 }}>
-                              不知道选择什么分类？请 <a href="#">点击这里</a>{' '}
-                              查看
                             </span>
                           </div>
                         );
@@ -136,13 +157,13 @@ export default class ContentEditor extends Component {
                 </Col>
               </Row>
               <FormItem label="描述">
-                <IceFormBinder name="desc">
-                  <Input multiple placeholder="这里填写正文描述" />
+                <IceFormBinder name="description">
+                  <Input multiple placeholder="这里填写简单描述" />
                 </IceFormBinder>
               </FormItem>
               <FormItem label="正文" required>
-                <IceFormBinder name="body">
-                  <RichEditor />
+                <IceFormBinder name="text">
+                  <RichEditor value={value.text} />
                 </IceFormBinder>
               </FormItem>
               <FormItem label=" ">
