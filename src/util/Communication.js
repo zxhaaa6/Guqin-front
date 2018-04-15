@@ -27,6 +27,17 @@ export default class Communication {
     });
   }
 
+  doJsonPut(url, jsonData) {
+    return this.ajax.put(url, jsonData).then(response => {
+      if (response.data.success) {
+        return response.data;
+      }
+      this.handleFieldMsg(response.data);
+    }).catch(err => {
+      this.handleError(err);
+    });
+  }
+
   doJsonGet(url, params) {
     return this.ajax.get(url, { params: params }).then(response => {
       if (response.data.success) {

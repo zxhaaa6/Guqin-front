@@ -11,6 +11,11 @@ export default class Api {
     return await this.communication.doJsonPost(url, postData);
   }
 
+  async putResource(postData) {
+    const url = '/resource/';
+    return await this.communication.doJsonPut(url, postData);
+  }
+
   async getFormData() {
     const category = await this.getAllCategory();
     const tag = await this.getAllTag();

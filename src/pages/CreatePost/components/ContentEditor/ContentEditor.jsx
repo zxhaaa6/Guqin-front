@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hashHistory } from 'react-router';
 import IceContainer from '@icedesign/container';
 import { Input, Grid, Form, Button, Select } from '@icedesign/base';
 import {
@@ -36,7 +37,7 @@ export default class ContentEditor extends Component {
         categoryLa: '',
         tags: [],
         description: '',
-        text: null,
+        text: '',
       },
     };
   }
@@ -44,7 +45,6 @@ export default class ContentEditor extends Component {
   async componentDidMount() {
     await this.fetchData();
     if (this.type === 'edit') {
-      console.log(this.oldRecord);
       const value = {
         title: this.oldRecord.title,
         categoryLa: this.oldRecord.categoryLaId,
@@ -52,7 +52,7 @@ export default class ContentEditor extends Component {
         description: this.oldRecord.description,
         text: this.oldRecord.text,
       };
-      this.setState({ value })
+      this.setState({ value });
     }
   }
 
@@ -81,7 +81,24 @@ export default class ContentEditor extends Component {
       if (errors) {
         return false;
       }
-      console.log(values);
+      const postData = {
+        action: this.type,
+        data: values
+      };
+      if (this.type === 'create') {
+        this.Api.postResource(postData).then(result => {
+          if (result) {
+            hashHistory.push('post/list');
+          }
+        });
+      } else if (this.type === 'edit') {
+        postData.id = this.oldRecord._id;
+        this.Api.putResource(postData).then(result => {
+          if (result) {
+            hashHistory.push('post/list');
+          }
+        });
+      }
     });
   };
 

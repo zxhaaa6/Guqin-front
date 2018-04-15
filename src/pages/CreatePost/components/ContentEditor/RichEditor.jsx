@@ -10,14 +10,33 @@ export default class RichEditor extends Component {
   constructor(props) {
     super(props);
 
+    this.editorInstance = null;
+
     this.state = {
       value: ''
     };
   }
 
+  componentDidMount() {
+    this._isMounted = true;
+    // setState() is async...
+    setTimeout(() => {
+      if (this.props.value && this.editorInstance) {
+        this.editorInstance.setContent(this.props.value, 'html');
+        this.setState({ value: this.props.value });
+      }
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   handleChange = (value) => {
-    this.setState({ value });
-    this.props.onChange(value);
+    if (this._isMounted) {
+      this.setState({ value });
+      this.props.onChange(value);
+    }
   }
 
   handleRawChange = (rawContent) => {
@@ -37,7 +56,7 @@ export default class RichEditor extends Component {
     return (
       <div>
         <IceContainer>
-          <BraftEditor {...editorProps} />
+          <BraftEditor {...editorProps} ref={instance => this.editorInstance = instance} />
         </IceContainer>
       </div>
     );
