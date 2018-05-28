@@ -51,7 +51,7 @@ export default class FilterTable extends Component {
             pageSize: 10,
             currentPage: 1,
             pageCount: 1,
-          }
+          },
         });
       }
     });
@@ -71,10 +71,9 @@ export default class FilterTable extends Component {
       pathname: 'post/create',
       state: {
         type: 'edit',
-        record
+        record,
       },
-    })
-
+    });
   };
 
   deleteItem = (value, index, record) => {
@@ -87,7 +86,7 @@ export default class FilterTable extends Component {
         });
       }
     });
-  }
+  };
 
   renderOperations = (value, index, record) => {
     return (
@@ -109,7 +108,7 @@ export default class FilterTable extends Component {
     );
   };
 
-  renderStatus = (value) => {
+  renderStatus = value => {
     return (
       <IceLabel inverse={false} status="default">
         {value}
@@ -117,13 +116,13 @@ export default class FilterTable extends Component {
     );
   };
 
-  changePage = (currentPage) => {
+  changePage = currentPage => {
     this.queryCache.page = currentPage;
 
     this.fetchData();
   };
 
-  filterFormChange = (value) => {
+  filterFormChange = value => {
     this.setState({
       filterFormValue: value,
     });
@@ -142,15 +141,18 @@ export default class FilterTable extends Component {
 
   resetFilter = () => {
     this.queryCache = {};
-    this.setState({
-      filterFormValue: {},
-    }, () => {
-      this.filterTable();
-    });
+    this.setState(
+      {
+        filterFormValue: {},
+      },
+      () => {
+        this.filterTable();
+      },
+    );
   };
 
   render() {
-    //const tableData = this.props.bindingData.tableData;
+    // const tableData = this.props.bindingData.tableData;
     const { filterFormValue, tableData } = this.state;
 
     return (
@@ -171,11 +173,7 @@ export default class FilterTable extends Component {
             style={styles.basicTable}
             hasBorder={false}
           >
-            <Table.Column
-              title="标题"
-              cell={this.renderTitle}
-              width={320}
-            />
+            <Table.Column title="标题" cell={this.renderTitle} width={320} />
             <Table.Column title="分类" dataIndex="categoryLaName" width={85} />
             <Table.Column
               title="标签"
@@ -183,11 +181,7 @@ export default class FilterTable extends Component {
               width={85}
               cell={this.renderStatus}
             />
-            <Table.Column
-              title="作者"
-              dataIndex="authorName"
-              width={85}
-            />
+            <Table.Column title="作者" dataIndex="authorName" width={85} />
             <Table.Column
               title="发布/最后修改时间"
               dataIndex="dateModified"

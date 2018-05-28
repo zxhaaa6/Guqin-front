@@ -27,7 +27,7 @@ export default class DeleteBalloon extends Component {
     });
   };
 
-  handleVisible = (visible) => {
+  handleVisible = visible => {
     this.setState({ visible });
   };
 

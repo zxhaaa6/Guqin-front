@@ -24,8 +24,16 @@ export default class FilterForm extends Component {
       categoryLa: 'null',
       tag: 'null',
       publishDate: '',
-      categoryOptions: [<Option key="null" value="null" disabled>请选择</Option>],
-      tagOptions: [<Option key="null" value="null" disabled>请选择</Option>],
+      categoryOptions: [
+        <Option key="null" value="null" disabled>
+          请选择
+        </Option>,
+      ],
+      tagOptions: [
+        <Option key="null" value="null" disabled>
+          请选择
+        </Option>,
+      ],
     };
   }
 
@@ -35,12 +43,24 @@ export default class FilterForm extends Component {
 
   fetchData = () => {
     this.Api.getFilterFormData().then(result => {
-      const categoryOptions = this.state.categoryOptions.concat(result.category.map(element => {
-        return <Option key={element._id} value={element._id}>{element.name}</Option>;
-      }));
-      const tagOptions = this.state.tagOptions.concat(result.tag.map(element => {
-        return <Option key={element._id} value={element._id}>{element.name}</Option>;
-      }));
+      const categoryOptions = this.state.categoryOptions.concat(
+        result.category.map(element => {
+          return (
+            <Option key={element._id} value={element._id}>
+              {element.name}
+            </Option>
+          );
+        }),
+      );
+      const tagOptions = this.state.tagOptions.concat(
+        result.tag.map(element => {
+          return (
+            <Option key={element._id} value={element._id}>
+              {element.name}
+            </Option>
+          );
+        }),
+      );
       this.setState({ categoryOptions, tagOptions });
     });
   };
@@ -55,15 +75,24 @@ export default class FilterForm extends Component {
       publishDate: '',
     });
     this.props.onReset();
-  }
+  };
 
   handleInputChange = value => {
     this.setState(value);
     this.props.onChange(value);
-  }
+  };
 
   render() {
-    const { id, title, text, categoryLa, tag, publishDate, categoryOptions, tagOptions } = this.state;
+    const {
+      id,
+      title,
+      text,
+      categoryLa,
+      tag,
+      publishDate,
+      categoryOptions,
+      tagOptions,
+    } = this.state;
     return (
       <IceFormBinderWrapper
         value={this.props.value}
@@ -93,7 +122,12 @@ export default class FilterForm extends Component {
             <Col xxs={24} xs={12} l={8} style={styles.filterCol}>
               <label style={styles.filterTitle}>分类</label>
               <IceFormBinder>
-                <Select name="categoryLa" placeholder="请选择" style={styles.filterTool} value={categoryLa}>
+                <Select
+                  name="categoryLa"
+                  placeholder="请选择"
+                  style={styles.filterTool}
+                  value={categoryLa}
+                >
                   {categoryOptions}
                 </Select>
               </IceFormBinder>
@@ -101,7 +135,12 @@ export default class FilterForm extends Component {
             <Col xxs={24} xs={12} l={8} style={styles.filterCol}>
               <label style={styles.filterTitle}>标签</label>
               <IceFormBinder>
-                <Select name="tag" placeholder="请选择" style={styles.filterTool} value={tag}>
+                <Select
+                  name="tag"
+                  placeholder="请选择"
+                  style={styles.filterTool}
+                  value={tag}
+                >
                   {tagOptions}
                 </Select>
               </IceFormBinder>
@@ -113,7 +152,11 @@ export default class FilterForm extends Component {
                   return strValue;
                 }}
               >
-                <DatePicker name="publishDate" style={styles.filterTool} value={publishDate} />
+                <DatePicker
+                  name="publishDate"
+                  style={styles.filterTool}
+                  value={publishDate}
+                />
               </IceFormBinder>
             </Col>
           </Row>

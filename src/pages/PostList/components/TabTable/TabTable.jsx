@@ -78,12 +78,12 @@ export default class TabTable extends Component {
   componentDidMount() {
     axios
       .get('/mock/tab-table.json')
-      .then((response) => {
+      .then(response => {
         this.setState({
           dataSource: response.data.data,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -104,7 +104,7 @@ export default class TabTable extends Component {
     });
   };
 
-  handleTabChange = (key) => {
+  handleTabChange = key => {
     this.setState({
       tabKey: key,
     });
@@ -116,7 +116,7 @@ export default class TabTable extends Component {
       <div className="tab-table">
         <IceContainer style={{ padding: '0 20px 20px' }}>
           <Tab onChange={this.handleTabChange}>
-            {tabs.map((item) => {
+            {tabs.map(item => {
               return (
                 <TabPane tab={item.tab} key={item.key}>
                   <CustomTable

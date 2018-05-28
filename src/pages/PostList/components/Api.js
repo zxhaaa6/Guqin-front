@@ -1,19 +1,18 @@
 import Communication from '../../../util/Communication';
 
 export default class Api {
-
   constructor() {
     this.communication = new Communication();
   }
 
   async getAllResource(query) {
     const url = '/resource/all';
-    return await this.communication.doJsonGet(url, query);
+    return this.communication.doJsonGet(url, query);
   }
 
   async deleteResource(id) {
     const url = '/resource/';
-    return await this.communication.doJsonDelete(url, { id });
+    return this.communication.doJsonDelete(url, { id });
   }
 
   async getFilterFormData() {

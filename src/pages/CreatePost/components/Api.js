@@ -8,12 +8,12 @@ export default class Api {
 
   async postResource(postData) {
     const url = '/resource/';
-    return await this.communication.doJsonPost(url, postData);
+    return this.communication.doJsonPost(url, postData);
   }
 
   async putResource(postData) {
     const url = '/resource/';
-    return await this.communication.doJsonPut(url, postData);
+    return this.communication.doJsonPut(url, postData);
   }
 
   async getFormData() {
