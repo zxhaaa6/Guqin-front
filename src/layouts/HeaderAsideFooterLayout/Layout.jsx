@@ -46,7 +46,7 @@ export default class HeaderAsideFooterResponsiveLayout extends Component {
     enquire.register(isDesktop, this.enquireScreenHandle('isDesktop'));
   };
 
-  enquireScreenHandle = (type) => {
+  enquireScreenHandle = type => {
     let collapse;
     if (type === 'isMobile') {
       collapse = false;
@@ -108,7 +108,9 @@ export default class HeaderAsideFooterResponsiveLayout extends Component {
   };
 
   render() {
-    const { location: { pathname } } = this.props;
+    const {
+      location: { pathname },
+    } = this.props;
 
     return (
       <Layout
@@ -161,7 +163,7 @@ export default class HeaderAsideFooterResponsiveLayout extends Component {
                           </span>
                         }
                       >
-                        {nav.children.map((item) => {
+                        {nav.children.map(item => {
                           const linkProps = {};
                           if (item.newWindow) {
                             linkProps.href = item.to;

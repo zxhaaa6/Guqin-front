@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import ContentEditor from './components/ContentEditor';
 import CustomBreadcrumb from '../../components/CustomBreadcrumb';

@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
 import IceContainer from '@icedesign/container';
 import BraftEditor from 'braft-editor';
 
-import 'braft-editor/dist/braft.css'
+import 'braft-editor/dist/braft.css';
 
 export default class RichEditor extends Component {
-
   constructor(props) {
     super(props);
 
     this.editorInstance = null;
 
     this.state = {
-      value: ''
+      value: '',
     };
   }
 
@@ -32,16 +30,16 @@ export default class RichEditor extends Component {
     this._isMounted = false;
   }
 
-  handleChange = (value) => {
+  handleChange = value => {
     if (this._isMounted) {
       this.setState({ value });
       this.props.onChange(value);
     }
-  }
+  };
 
-  handleRawChange = (rawContent) => {
-    //console.log(rawContent);
-  }
+  handleRawChange = rawContent => {
+    console.log(rawContent);
+  };
 
   render() {
     const { value } = this.state;
@@ -50,21 +48,18 @@ export default class RichEditor extends Component {
       contentFormat: 'html',
       initialContent: value,
       onChange: this.handleChange,
-      onRawChange: this.handleRawChange
-    }
+      onRawChange: this.handleRawChange,
+    };
 
     return (
       <div>
         <IceContainer>
-          <BraftEditor {...editorProps} ref={instance => this.editorInstance = instance} />
+          <BraftEditor
+            {...editorProps}
+            ref={instance => (this.editorInstance = instance)}
+          />
         </IceContainer>
       </div>
     );
   }
 }
-
-const styles = {
-  editor: {
-    minHeight: 200,
-  },
-};

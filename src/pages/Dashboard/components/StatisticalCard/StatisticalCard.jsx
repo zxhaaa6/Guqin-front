@@ -53,7 +53,7 @@ export default class StatisticalCard extends Component {
   enquireScreenRegister = () => {
     const mediaCondition = 'only screen and (max-width: 720px)';
 
-    enquireScreen((mobile) => {
+    enquireScreen(mobile => {
       this.setState({
         isMobile: mobile,
       });

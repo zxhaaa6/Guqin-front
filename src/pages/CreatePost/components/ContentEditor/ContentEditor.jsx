@@ -8,7 +8,7 @@ import {
   FormError as IceFormError,
 } from '@icedesign/form-binder';
 
-import RichEditor from './RichEditor'
+import RichEditor from './RichEditor';
 import Api from '../Api';
 
 const { Row, Col } = Grid;
@@ -25,8 +25,14 @@ export default class ContentEditor extends Component {
     super(props);
 
     this.Api = new Api();
-    this.type = (this.props.dataSource && this.props.dataSource.type === 'edit') ? 'edit' : 'create';
-    this.oldRecord = (this.props.dataSource && this.props.dataSource.record) ? this.props.dataSource.record : null;
+    this.type =
+      this.props.dataSource && this.props.dataSource.type === 'edit'
+        ? 'edit'
+        : 'create';
+    this.oldRecord =
+      this.props.dataSource && this.props.dataSource.record
+        ? this.props.dataSource.record
+        : null;
 
     this.state = {
       headTitle: this.type === 'create' ? '添加文章' : '修改文章',
@@ -58,19 +64,23 @@ export default class ContentEditor extends Component {
 
   fetchData = () => {
     return this.Api.getFormData().then(result => {
-      const categoryOptions = this.state.categoryOptions.concat(result.category.map(element => {
-        //return <Option key={element._id} value={element._id}>{element.name}</Option>;
-        return { label: element.name, value: element._id };
-      }));
-      const tagOptions = this.state.tagOptions.concat(result.tag.map(element => {
-        //return <Option key={element._id} value={element._id}>{element.name}</Option>;
-        return { label: element.name, value: element._id };
-      }));
+      const categoryOptions = this.state.categoryOptions.concat(
+        result.category.map(element => {
+          // return <Option key={element._id} value={element._id}>{element.name}</Option>;
+          return { label: element.name, value: element._id };
+        }),
+      );
+      const tagOptions = this.state.tagOptions.concat(
+        result.tag.map(element => {
+          // return <Option key={element._id} value={element._id}>{element.name}</Option>;
+          return { label: element.name, value: element._id };
+        }),
+      );
       this.setState({ categoryOptions, tagOptions });
     });
   };
 
-  formChange = (value) => {
+  formChange = value => {
     this.setState({
       value,
     });
@@ -83,7 +93,7 @@ export default class ContentEditor extends Component {
       }
       const postData = {
         action: this.type,
-        data: values
+        data: values,
       };
       if (this.type === 'create') {
         this.Api.postResource(postData).then(result => {
@@ -107,7 +117,7 @@ export default class ContentEditor extends Component {
     return (
       <div className="content-editor">
         <IceFormBinderWrapper
-          ref={(refInstance) => {
+          ref={refInstance => {
             this.postForm = refInstance;
           }}
           value={this.state.value}
@@ -160,7 +170,7 @@ export default class ContentEditor extends Component {
                     </IceFormBinder>
                     <IceFormError
                       name="tags"
-                      render={(errors) => {
+                      render={errors => {
                         return (
                           <div>
                             <span style={{ color: 'red' }}>

@@ -9,7 +9,7 @@ import {
 } from '@icedesign/form-binder';
 import IceIcon from '@icedesign/icon';
 import './UserLogin.scss';
-import Api from '../Api'
+import Api from '../Api';
 
 const { Row, Col } = Grid;
 
@@ -36,13 +36,13 @@ export default class UserLogin extends Component {
     };
   }
 
-  formChange = (value) => {
+  formChange = value => {
     this.setState({
       value,
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     this.refs.form.validateAll((errors, values) => {
       if (errors) {

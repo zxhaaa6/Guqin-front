@@ -40,12 +40,24 @@
     "eslint-plugin-babel": "^4.1.1",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "ice-scripts": "^1.1.1"
+    "husky": "^0.14.3",
+    "ice-scripts": "^1.1.1",
+    "prettier": "^1.12.1"
   },
   "scripts": {
     "start": "ice dev",
     "build": "ice build",
-    "lint": "eslint . --ext '.js,.jsx' --fix"
+    "lint": "eslint '{src}/**/*.{js,jsx}'",
+    "precommit": "npm run prettify && npm run lint",
+    "prettify": "prettier --write --single-quote --trailing-comma all --loglevel silent '{src}/**/*.{js,jsx}'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit",
+      "pre-": "npm run precommit",
+      "pre-push": "npm run prettify && npm run lint",
+      "pre-rebase": "npm run prettify && npm run lint"
+    }
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.com",

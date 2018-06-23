@@ -1,7 +1,6 @@
 import Communication from '../../../util/Communication';
 
 export default class Api {
-
   constructor() {
     this.communication = new Communication();
   }

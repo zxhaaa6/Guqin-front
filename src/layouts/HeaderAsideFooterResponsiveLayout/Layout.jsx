@@ -52,7 +52,7 @@ export default class HeaderAsideFooterResponsiveLayout extends Component {
     enquire.register(isDesktop, this.enquireScreenHandle('isDesktop'));
   };
 
-  enquireScreenHandle = (type) => {
+  enquireScreenHandle = type => {
     let collapse;
     if (type === 'isMobile') {
       collapse = false;
@@ -100,7 +100,7 @@ export default class HeaderAsideFooterResponsiveLayout extends Component {
   /**
    * 当前展开的菜单项
    */
-  onOpenChange = (openKeys) => {
+  onOpenChange = openKeys => {
     this.setState({
       openKeys,
     });
@@ -144,7 +144,7 @@ export default class HeaderAsideFooterResponsiveLayout extends Component {
           `ice-design-header-aside-footer-responsive-layout-${theme}`,
           {
             'ice-design-layout': true,
-          }
+          },
         )}
       >
         <Header
@@ -205,7 +205,7 @@ export default class HeaderAsideFooterResponsiveLayout extends Component {
                           </span>
                         }
                       >
-                        {nav.children.map((item) => {
+                        {nav.children.map(item => {
                           const linkProps = {};
                           if (item.newWindow) {
                             linkProps.href = item.to;
