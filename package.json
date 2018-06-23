@@ -48,8 +48,7 @@
     "start": "ice dev",
     "build": "ice build",
     "lint": "eslint '{src}/**/*.{js,jsx}'",
-    "precommit": "npm run prettify && npm run lint",
-    "prettify": "prettier --write --single-quote --trailing-comma all --loglevel silent '{src}/**/*.{js,jsx}'"
+    "precommit": "npm run lint"
   },
   "husky": {
     "hooks": {
